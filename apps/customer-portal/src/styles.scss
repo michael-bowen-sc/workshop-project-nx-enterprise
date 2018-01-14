@@ -81,18 +81,43 @@
   text-align: center;
   padding: 10px 4px;
   label {
-    font-size: 1.4em;
+    font-size: 1.0em;
     font-weight: bold;
+    input[name=searchTerm] {
+      width: 200px;
+    }
+    input[name=assignedToUser] {
+      width: 120px;
+    }
+  }
+  .assigned-to-user-form-field {
+    display: inline-block;
+    ul {
+      margin-top: 0px;
+      margin-left: 101px;
+      position: absolute;
+      font-size: .8em;
+      list-style: none;
+      background: #e8e8e8;
+      padding: 0;
+      width: 124px;
+      li {
+        margin: 0;
+        padding: 4px 6px;
+        text-align: left;
+        cursor: pointer;
+      }
+    }
   }
   input {
     width: 300px;
     font-size: 1em;
   }
   button {
-    top: -3px;
+    top: 0;
     position: relative;
     padding: 0 10px;
-    height: 34px;
+    height: 24px;
     font-size: 1em;
     background: #4ec3e3;
     color: white;

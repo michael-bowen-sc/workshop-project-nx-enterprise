@@ -17,6 +17,10 @@ export class SearchTicketsComponent implements OnInit {
 
   ngOnInit() {}
 
+  setAssignedToUser(value) {
+    this.assignedToUser.patchValue(value, {emitEvent: false});
+  }
+
   submit() {}
 }
 
