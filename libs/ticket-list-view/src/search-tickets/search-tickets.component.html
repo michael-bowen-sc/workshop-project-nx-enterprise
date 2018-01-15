@@ -9,7 +9,7 @@
       <input type="text" name="assignedToUser" [formControl]="assignedToUser">
     </label>
     <ul>
-      <li (click)="setAssignedToUser('name')">name</li>
+      <li (click)="setAssignedToUser('name')">{{'name'}}</li>
     </ul>
   </div>
   <button [disabled]="!searchTerm.value && !assignedToUser.value" (click)="submit()">Search</button>

@@ -19,7 +19,14 @@ export class TicketService {
   }
 
   searchTickets(searchTerm: string, assignedToUser: string = ''): Observable<Ticket[]> {
-    return this.http.get<Ticket[]>(`${this._rootUrl}/api/tickets`, { params: { searchTerm, assignedToUser } });
+    const params = {};
+    if (searchTerm) {
+      params['searchTerm'] = searchTerm;
+    }
+    if (assignedToUser) {
+      params['assignedToUser'] = assignedToUser;
+    }
+    return this.http.get<Ticket[]>(`${this._rootUrl}/api/tickets`, { params });
   }
 
   ticketById(id: number): Observable<Ticket> {
