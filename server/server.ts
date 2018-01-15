@@ -188,8 +188,14 @@ app.get('/api/comments', (req, res) => {
 });
 
 app.get('/api/users', (req, res) => {
+  const searchTerm = req.query['searchTerm'] !== 'undefined' ? req.query['searchTerm'] : null;
   setTimeout(() => {
-    res.send(users);
+    let usersToReturn = users;
+    if (searchTerm) {
+      usersToReturn = users
+        .filter(user => user.fullName.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+    }
+    res.send(usersToReturn);
   }, randomDelay(throttle));
 });
 
