@@ -17,11 +17,13 @@ export class TicketDetailsComponent implements OnInit {
   ticket$: Observable<Ticket>;
   comments$: Observable<TicketComment[]>;
   ticketMessage = new FormControl();
+  timer$: Observable<number>;
 
   constructor(private store: Store<TicketsStateModelState>, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.store.dispatch({ type: 'LOAD_TICKETS' });
       const id = +params['id'];
       this.store.dispatch({ type: 'LOAD_TICKET_COMMENTS', payload: id });
       this.ticket$ = this.store
@@ -36,4 +38,6 @@ export class TicketDetailsComponent implements OnInit {
   cancelEdit() {}
 
   saveEdit() {}
+
+  startTimer() {}
 }

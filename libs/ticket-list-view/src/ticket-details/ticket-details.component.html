@@ -40,6 +40,14 @@
       <span class="ticket-not-assigned">Not Assigned</span>
     </ng-template>
   </div>
+  <div class="ticket-timer">
+    <div *ngIf="timer$ | async as time; else timerButton">
+      Time: <strong>{{time}}</strong>
+    </div>
+    <ng-template #timerButton>
+      <button (click)="startTimer()">Start a Timer</button>
+    </ng-template>
+  </div>
   <footer class="ticket-comments">
     <div class="ticket-comment card" *ngFor="let comment of comments$ | async">
       <span>{{comment.message}}</span>

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { TicketService, UserService } from '@tuskdesk-suite/backend';
-import { User } from "@tuskdesk-suite/data-models";
+import { User } from '@tuskdesk-suite/data-models';
 
 @Component({
   selector: 'app-search-tickets',
@@ -15,18 +15,15 @@ export class SearchTicketsComponent implements OnInit {
   searchResults$: Observable<SearchResult[]>;
   users: User[];
 
-  constructor(private ticketService: TicketService,
-              private userService: UserService) {}
+  constructor(private ticketService: TicketService, private userService: UserService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   setAssignedToUser(value) {
-    this.assignedToUser.patchValue(value, {emitEvent: false});
+    this.assignedToUser.patchValue(value, { emitEvent: false });
   }
 
-  submit() {
-  }
+  submit() {}
 }
 
 interface SearchResult {

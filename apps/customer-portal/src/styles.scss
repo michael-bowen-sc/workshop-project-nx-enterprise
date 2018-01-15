@@ -1,5 +1,9 @@
 @import "./libs/styles/main.scss";
 
+button {
+  cursor: pointer;
+}
+
 .header-bar {
   background: #cdecf7;
   box-shadow: 0 4px 6px #a1b5c9;
@@ -21,6 +25,21 @@
     font-size: 1.2em;
     margin: 0;
     padding-bottom: 10px;
+  }
+}
+.ticket-timer {
+  padding: 4px 0;
+  button {
+    padding: 0 10px;
+    height: 34px;
+    font-size: 1em;
+    background: #fad391;
+    color: black;
+    border: 0;
+    &:disabled {
+      background: #999999;
+      color: #ccc;
+    }
   }
 }
 .ticket-meta {
@@ -75,6 +94,10 @@
       color: #ccc;
     }
   }
+}
+.ticket-comment-form {
+  display: flex;
+  flex-direction: column;
 }
 
 .ticket-search-form {
