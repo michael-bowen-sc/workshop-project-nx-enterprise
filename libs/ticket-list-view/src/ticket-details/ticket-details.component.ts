@@ -40,4 +40,6 @@ export class TicketDetailsComponent implements OnInit {
   saveEdit() {}
 
   startTimer() {}
+
+  markToWork(ticketId: string) {}
 }

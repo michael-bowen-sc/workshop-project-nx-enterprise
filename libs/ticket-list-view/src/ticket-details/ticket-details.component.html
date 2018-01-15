@@ -1,5 +1,5 @@
 <section *ngIf="ticket$ | async; let ticket">
-  <header class="ticket-header">
+  <header class="ticket-header" (click)="markToWork(ticket.id)">
     <span>
       Ticket Id: {{ticket.id}}
     </span>

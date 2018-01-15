@@ -17,6 +17,10 @@ button {
   font-weight: bold;
   text-align: right;
   padding: 10px;
+  cursor: pointer;
+  &.marked {
+    background: #83f27f;
+  }
 }
 .ticket-message {
   background: #eeeeee;
