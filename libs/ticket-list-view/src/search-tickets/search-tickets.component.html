@@ -12,7 +12,7 @@
       <li *ngFor="let userFullName of users$ | async" (click)="setAssignedToUser(userFullName)">{{userFullName}}</li>
     </ul>
   </div>
-  <button [disabled]="!searchTerm.value && !assignedToUser.value" (click)="submit()">Search</button>
+  <button [disabled]="!searchTerm.value && !assignedToUser.value" (click)="submitClick$.next($event)">Search</button>
 </div>
 <section class="ticket-search-results">
   <a routerLink="/ticket/{{result.id}}" *ngFor="let result of searchResults$ | async">

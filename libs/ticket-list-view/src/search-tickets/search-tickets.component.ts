@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { TicketService, UserService } from '@tuskdesk-suite/backend';
 import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
   selector: 'app-search-tickets',
@@ -13,6 +14,7 @@ export class SearchTicketsComponent implements OnInit {
   searchTerm = new FormControl();
   assignedToUser = new FormControl();
   searchResults$: Observable<SearchResult[]>;
+  submitClick$ = new Subject();
   users$: Observable<string[]>;
 
   constructor(private ticketService: TicketService, private userService: UserService) {}
@@ -26,14 +28,14 @@ export class SearchTicketsComponent implements OnInit {
         return this.userService.users(value).pipe(map(users => users.map(user => user.fullName)));
       })
     );
+
+    this.searchResults$ = this.submitClick$.pipe(
+      switchMap(() => this.ticketService.searchTickets(this.searchTerm.value, this.assignedToUser.value))
+    );
   }
 
   setAssignedToUser(value) {
     this.assignedToUser.patchValue(value, { emitEvent: false });
-  }
-
-  submit() {
-    this.searchResults$ = this.ticketService.searchTickets(this.searchTerm.value, this.assignedToUser.value);
   }
 }
 
