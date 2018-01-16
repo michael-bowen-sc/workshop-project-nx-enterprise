@@ -1,49 +1,31 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs/Observable';
 import { TicketService, UserService } from '@tuskdesk-suite/backend';
-import { User } from '@tuskdesk-suite/data-models';
-import { Subscription } from 'rxjs/Subscription';
-import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-tickets',
   templateUrl: './search-tickets.component.html',
   styleUrls: ['./search-tickets.component.scss']
 })
-export class SearchTicketsComponent implements OnInit, OnDestroy {
+export class SearchTicketsComponent implements OnInit {
   searchTerm = new FormControl();
   assignedToUser = new FormControl();
   searchResults$: Observable<SearchResult[]>;
-  users: string[];
-  subscription: Subscription;
+  users$: Observable<string[]>;
 
   constructor(private ticketService: TicketService, private userService: UserService) {}
 
   ngOnInit() {
-    this.subscription = this.assignedToUser.valueChanges
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged(),
-        tap(value => {
-          if (value.length === 0) {
-            this.users = [];
-          }
-        }),
-        filter(value => value.length > 0)
-      )
-      .subscribe(value => {
-        this.userService
-          .users(value)
-          .pipe(map(users => users.map(user => user.fullName)))
-          .subscribe(userFullNames => {
-            this.users = userFullNames;
-          });
-      });
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.users$ = this.assignedToUser.valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      filter(value => value.length > 0),
+      switchMap(value => {
+        return this.userService.users(value).pipe(map(users => users.map(user => user.fullName)));
+      })
+    );
   }
 
   setAssignedToUser(value) {
