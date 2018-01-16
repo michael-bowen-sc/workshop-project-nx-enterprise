@@ -9,7 +9,9 @@ import { LogsBackendModule } from '@tuskdesk-suite/logs-backend';
   imports: [
     BrowserModule,
     NxModule.forRoot(),
-    RouterModule.forRoot([], { initialNavigation: 'enabled' }),
+    RouterModule.forRoot([{ path: '', loadChildren: '@tuskdesk-suite/logs-view#LogsViewModule' }], {
+      initialNavigation: 'enabled'
+    }),
     LogsBackendModule
   ],
   declarations: [AppComponent],

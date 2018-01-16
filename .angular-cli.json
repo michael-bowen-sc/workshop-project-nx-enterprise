@@ -116,6 +116,12 @@
       "appRoot": ""
     },
     {
+      "name": "logs-view",
+      "root": "libs/logs-view/src",
+      "test": "../../../test.js",
+      "appRoot": ""
+    },
+    {
       "name": "reporting-dashboard-view",
       "root": "libs/reporting-dashboard-view/src",
       "test": "../../../test.js",
