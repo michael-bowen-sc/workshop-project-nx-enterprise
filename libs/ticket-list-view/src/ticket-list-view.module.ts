@@ -8,7 +8,7 @@ import { RouterEffects } from './+state/router.effects';
 import { TicketDetailsComponent } from './ticket-details/ticket-details.component';
 import { SearchTicketsComponent } from './search-tickets/search-tickets.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TicketsStateModule } from "@tuskdesk-suite/tickets-state";
+import { TicketsStateModule } from '@tuskdesk-suite/tickets-state';
 
 @NgModule({
   imports: [

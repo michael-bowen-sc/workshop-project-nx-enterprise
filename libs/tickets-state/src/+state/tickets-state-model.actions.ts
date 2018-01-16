@@ -19,8 +19,4 @@ export interface TicketLoaded {
   payload: Ticket;
 }
 
-export type TicketsStateModelAction =
-  | LoadTickets
-  | TicketsLoaded
-  | LoadTicket
-  | TicketLoaded;
+export type TicketsStateModelAction = LoadTickets | TicketsLoaded | LoadTicket | TicketLoaded;
