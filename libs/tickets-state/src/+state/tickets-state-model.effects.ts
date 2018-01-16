@@ -2,10 +2,9 @@ import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/nx';
 import { TicketsStateModelState } from './tickets-state-model.interfaces';
-import { LoadTicket, LoadTicketComments, LoadTickets } from './tickets-state-model.actions';
+import { LoadTicket, LoadTickets } from './tickets-state-model.actions';
 import { TicketService } from '@tuskdesk-suite/backend';
-import { catchError, map, mergeMap } from 'rxjs/operators';
-import { Observable } from 'rxjs/Observable';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class TicketsStateModelEffects {
@@ -42,21 +41,6 @@ export class TicketsStateModelEffects {
 
     onError: (a: LoadTicket, error) => {}
   });
-
-  @Effect()
-  loadData = this.actions.ofType('LOAD_TICKET_COMMENTS').pipe(
-    mergeMap((action: LoadTicketComments) =>
-      this.ticketService.comments(action.payload).pipe(
-        map(comments => {
-          return {
-            type: 'TICKET_COMMENTS_LOADED',
-            payload: comments
-          };
-        }),
-        catchError(() => Observable.create(null))
-      )
-    )
-  );
 
   constructor(
     private actions: Actions,

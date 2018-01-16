@@ -7,7 +7,6 @@ import { BackendModule, BackendUserIdService, LoggedInUserInterceptor } from '@t
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { TicketsStateModule } from '@tuskdesk-suite/tickets-state';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { AuthenticationStateModule } from '@tuskdesk-suite/authentication-state';
 import { EffectsModule } from '@ngrx/effects';
@@ -31,7 +30,6 @@ import { LoggedInUserIdService } from './logged-in-user-id.service';
     StoreModule.forRoot({}),
     EffectsModule.forRoot([]),
     AuthenticationStateModule,
-    TicketsStateModule,
     StoreRouterConnectingModule,
     !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
