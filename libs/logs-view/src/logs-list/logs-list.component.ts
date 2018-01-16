@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { LogService } from '@tuskdesk-suite/logs-backend';
 import { EventLog } from '@tuskdesk-suite/data-models';
 import { Observable } from 'rxjs/Observable';
+import { LogsRootState } from '@tuskdesk-suite/logs-state';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-logs-list',
@@ -11,9 +12,10 @@ import { Observable } from 'rxjs/Observable';
 export class LogsListComponent implements OnInit {
   logs$: Observable<EventLog[]>;
 
-  constructor(private logService: LogService) {}
+  constructor(private store: Store<LogsRootState>) {}
 
   ngOnInit() {
-    this.logs$ = this.logService.logs();
+    this.store.dispatch({ type: 'LOAD_EVENT_LOGS' });
+    this.logs$ = this.store.select(s => s.logsRoot.eventLogs);
   }
 }

@@ -116,6 +116,12 @@
       "appRoot": ""
     },
     {
+      "name": "logs-state",
+      "root": "libs/logs-state/src",
+      "test": "../../../test.js",
+      "appRoot": ""
+    },
+    {
       "name": "logs-view",
       "root": "libs/logs-view/src",
       "test": "../../../test.js",
