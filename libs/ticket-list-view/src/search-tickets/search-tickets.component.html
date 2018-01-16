@@ -9,7 +9,7 @@
       <input type="text" name="assignedToUser" [formControl]="assignedToUser">
     </label>
     <ul>
-      <li *ngFor="let user of users" (click)="setAssignedToUser(user.fullName)">{{user.fullName}}</li>
+      <li *ngFor="let userFullName of users" (click)="setAssignedToUser(userFullName)">{{userFullName}}</li>
     </ul>
   </div>
   <button [disabled]="!searchTerm.value && !assignedToUser.value" (click)="submit()">Search</button>

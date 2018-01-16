@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { TicketService, UserService } from '@tuskdesk-suite/backend';
 import { User } from '@tuskdesk-suite/data-models';
 import { Subscription } from 'rxjs/Subscription';
+import { debounceTime, distinctUntilChanged, filter, map, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-search-tickets',
@@ -14,17 +15,31 @@ export class SearchTicketsComponent implements OnInit, OnDestroy {
   searchTerm = new FormControl();
   assignedToUser = new FormControl();
   searchResults$: Observable<SearchResult[]>;
-  users: User[];
+  users: string[];
   subscription: Subscription;
 
   constructor(private ticketService: TicketService, private userService: UserService) {}
 
   ngOnInit() {
-    this.subscription = this.assignedToUser.valueChanges.subscribe(value => {
-      this.userService.users(value).subscribe(users => {
-        this.users = users;
+    this.subscription = this.assignedToUser.valueChanges
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged(),
+        tap(value => {
+          if (value.length === 0) {
+            this.users = [];
+          }
+        }),
+        filter(value => value.length > 0)
+      )
+      .subscribe(value => {
+        this.userService
+          .users(value)
+          .pipe(map(users => users.map(user => user.fullName)))
+          .subscribe(userFullNames => {
+            this.users = userFullNames;
+          });
       });
-    });
   }
 
   ngOnDestroy() {
