@@ -19,6 +19,7 @@ export class TicketDetailsComponent implements OnInit {
   comments$: Observable<TicketComment[]>;
   ticketMessage = new FormControl();
   timer$: Observable<number>;
+  markedToWork$: Observable<boolean>;
 
   constructor(
     private store: Store<TicketsStateModelState>,
@@ -33,6 +34,8 @@ export class TicketDetailsComponent implements OnInit {
       this.ticket$ = this.store
         .select(s => s.ticketsStateModel.tickets)
         .pipe(map(tickets => tickets.find(ticket => ticket.id === id)));
+
+      this.markedToWork$ = this.ticketTimerService.ticketsToWork$.pipe(map(ticketIds => ticketIds.indexOf(id) >= 0));
     });
   }
 
@@ -46,5 +49,7 @@ export class TicketDetailsComponent implements OnInit {
     this.timer$ = this.ticketTimerService.timer$;
   }
 
-  markToWork(ticketId: string) {}
+  markToWork(ticketId: string) {
+    this.ticketTimerService.addTicketIdToWork(ticketId);
+  }
 }

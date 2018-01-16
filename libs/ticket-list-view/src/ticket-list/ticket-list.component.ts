@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { Ticket } from '@tuskdesk-suite/data-models';
 import { map } from 'rxjs/operators';
+import { TicketTimerService } from '../ticket-timer.service';
 
 @Component({
   selector: 'app-ticket-list',
@@ -13,12 +14,15 @@ import { map } from 'rxjs/operators';
 })
 export class TicketListComponent implements OnInit {
   tickets$: Observable<Ticket[]>;
+  ticketsToWork$: Observable<number>;
 
-  constructor(private store: Store<TicketsStateModelState>) {}
+  constructor(private store: Store<TicketsStateModelState>, private ticketTimerService: TicketTimerService) {}
 
   ngOnInit() {
     this.tickets$ = this.store
       .select(s => s.ticketsStateModel.tickets)
       .pipe(map(tickets => tickets.filter(ticket => ticket.status === 'open')));
+
+    this.ticketsToWork$ = this.ticketTimerService.ticketsToWork$.pipe(map(ticketIds => ticketIds.length));
   }
 }
