@@ -104,6 +104,12 @@
       "test": "../../../test.js"
     },
     {
+      "name": "comments-state",
+      "root": "libs/comments-state/src",
+      "test": "../../../test.js",
+      "appRoot": ""
+    },
+    {
       "name": "data-models",
       "appRoot": "",
       "root": "libs/data-models/src",

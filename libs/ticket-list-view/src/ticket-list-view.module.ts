@@ -10,6 +10,7 @@ import { SearchTicketsComponent } from './search-tickets/search-tickets.componen
 import { ReactiveFormsModule } from '@angular/forms';
 import { TicketsStateModule } from '@tuskdesk-suite/tickets-state';
 import { TicketTimerService } from './ticket-timer.service';
+import { CommentsStateModule } from '@tuskdesk-suite/comments-state';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { TicketTimerService } from './ticket-timer.service';
     ]),
     EffectsModule.forRoot([RouterEffects]),
     StoreRouterConnectingModule,
-    TicketsStateModule
+    TicketsStateModule,
+    CommentsStateModule
   ],
   declarations: [TicketListComponent, TicketDetailsComponent, SearchTicketsComponent],
   providers: [TicketTimerService]
