@@ -1,27 +1,14 @@
 import { TicketsStateModel } from './tickets-state-model.interfaces';
 import { TicketsStateModelAction } from './tickets-state-model.actions';
+import { ticketsStateAdapter } from '../+state/tickets-state-model.init';
 
 export function ticketsStateModelReducer(state: TicketsStateModel, action: TicketsStateModelAction): TicketsStateModel {
   switch (action.type) {
     case 'TICKETS_LOADED': {
-      const tickets = {};
-      action.payload.forEach(ticket => {
-        tickets[ticket.id] = { ...ticket };
-      });
-      return {
-        ...state,
-        tickets,
-        ids: action.payload.map(ticket => ticket.id)
-      };
+      return ticketsStateAdapter.addAll(action.payload, state);
     }
     case 'TICKET_LOADED': {
-      return {
-        ...state,
-        tickets: {
-          ...state.tickets,
-          [action.payload.id]: { ...action.payload }
-        }
-      };
+      return ticketsStateAdapter.addOne(action.payload, state);
     }
     default: {
       return state;
