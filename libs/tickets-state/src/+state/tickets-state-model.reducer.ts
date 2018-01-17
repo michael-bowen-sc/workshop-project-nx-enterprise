@@ -4,16 +4,23 @@ import { TicketsStateModelAction } from './tickets-state-model.actions';
 export function ticketsStateModelReducer(state: TicketsStateModel, action: TicketsStateModelAction): TicketsStateModel {
   switch (action.type) {
     case 'TICKETS_LOADED': {
-      return { ...state, tickets: action.payload };
-    }
-    case 'TICKET_LOADED': {
-      const tickets = [...state.tickets];
-      if (!tickets.some(ticket => ticket.id === action.payload.id)) {
-        tickets.push(action.payload);
-      }
+      const tickets = {};
+      action.payload.forEach(ticket => {
+        tickets[ticket.id] = { ...ticket };
+      });
       return {
         ...state,
-        tickets
+        tickets,
+        ids: action.payload.map(ticket => ticket.id)
+      };
+    }
+    case 'TICKET_LOADED': {
+      return {
+        ...state,
+        tickets: {
+          ...state.tickets,
+          [action.payload.id]: { ...action.payload }
+        }
       };
     }
     default: {

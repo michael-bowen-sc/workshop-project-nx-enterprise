@@ -1,7 +1,8 @@
 import { Ticket } from '@tuskdesk-suite/data-models';
 
 export interface TicketsStateModel {
-  tickets: Ticket[];
+  tickets: { [key: number]: Ticket };
+  ids: number[];
 }
 
 export interface TicketsStateModelState {

@@ -31,9 +31,7 @@ export class TicketDetailsComponent implements OnInit {
     this.route.params.subscribe(params => {
       const id = +params['id'];
       this.store.dispatch({ type: 'LOAD_TICKET', payload: id });
-      this.ticket$ = this.store
-        .select(s => s.ticketsStateModel.tickets)
-        .pipe(map(tickets => tickets.find(ticket => ticket.id === id)));
+      this.ticket$ = this.store.select(s => s.ticketsStateModel.tickets).pipe(map(tickets => tickets[id]));
 
       this.markedToWork$ = this.ticketTimerService.ticketsToWork$.pipe(map(ticketIds => ticketIds.indexOf(id) >= 0));
     });

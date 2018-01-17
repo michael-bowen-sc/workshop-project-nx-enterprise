@@ -20,8 +20,11 @@ export class TicketListComponent implements OnInit {
 
   ngOnInit() {
     this.tickets$ = this.store
-      .select(s => s.ticketsStateModel.tickets)
-      .pipe(map(tickets => tickets.filter(ticket => ticket.status === 'open')));
+      .select(s => s.ticketsStateModel)
+      .pipe(
+        map(model => model.ids.map(id => model.tickets[id])),
+        map(tickets => tickets.filter(ticket => ticket.status === 'open'))
+      );
 
     this.ticketsToWork$ = this.ticketTimerService.ticketsToWork$.pipe(map(ticketIds => ticketIds.length));
   }
